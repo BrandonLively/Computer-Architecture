@@ -26,36 +26,27 @@ class CPU:
 
     def __init__(self):
         self.pc = 0
-        self.ram = [int] * 256
+        self.ram = [None] * 256
         self.reg = [0] * 8
 
-    def load(self):
+    def load(self, filename):
         """Load a program into memory."""
 
         address = 0
+        try:
+            with open(filename) as f:
+                for line in f:
+                    comment_split = line.split("#")
+                    num = comment_split[0].strip()
+                    if num == '':
+                        continue
+                    val = int(num, 2)
+                    self.ram[address] = val
+                    address += 1
+        except FileNotFoundError:
+            print("File not Found")
+            sys.exit(2)
 
-        # For now, we've just hardcoded a program:
-
-        program = [
-            # From print8.ls8
-            0b10000010,  # LDI R0,8
-            0b00000000,
-            0b00001000,
-            0b10000010, # LDI R1,9
-            0b00000001,
-            0b00001001,
-            0b10100010,  # MUL R0,R1
-            0b00000000,
-            0b00000001,
-            0b01000111,  # PRN R0
-            0b00000000,
-            0b00000001,  # HLT
-
-        ]
-
-        for instruction in program:
-            self.ram[address] = instruction
-            address += 1
 
 
     def alu(self, op, reg_a, reg_b):
