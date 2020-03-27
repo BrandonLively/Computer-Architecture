@@ -9,7 +9,7 @@ from cpu import *
 basedir = os.path.abspath(os.getcwd())
 filedir = os.path.join(basedir, "examples")
 
-filename = "mult.ls8"
+filename = "sprint.ls8"
 
 filepath = os.path.join(filedir, filename)
 
