@@ -3,9 +3,17 @@
 """Main."""
 
 import sys
+import os
 from cpu import *
+
+basedir = os.path.abspath(os.getcwd())
+filedir = os.path.join(basedir, "examples")
+
+filename = "sprint.ls8"
+
+filepath = os.path.join(filedir, filename)
 
 cpu = CPU()
 
-cpu.load()
+cpu.load(filepath)
 cpu.run()
